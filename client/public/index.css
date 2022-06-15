@@ -76,5 +76,8 @@ button {
     padding: 5px;
     margin : 2px 0;
     background-color: bisque;
-    
+    text-align: left;
+    width : 20%;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
