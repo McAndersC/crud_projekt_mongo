@@ -81,14 +81,23 @@ const listUsersByQuery = (query) => {
         </div>
     `;
 
+    const doReject1 = false;
+    const doReject2 = true;
     const ventPaaMig = () => {
         console.log('ventPaaMig : JEG SKAL LIGE NOGET, DER GÅR LIGE 5 SEKUNDER');
-        return new Promise(resolve => {
+        return new Promise((resolve, reject) => {
             setTimeout(() => {
 
-                console.log('ventPaaMig : JEG KOM FØRST');
+                if(doReject1) {
+                
+                    reject('ventPaaMig : JEG NÆGTER!')
 
-                resolve();
+                } else {
+                 
+                    resolve('ventPaaMig : JEG KOM FØRST');  
+                }
+               
+            
             }, 5000);
         });
     
@@ -97,10 +106,17 @@ const listUsersByQuery = (query) => {
     const ogsaaVentPaaMig = () => {
 
         console.log('ogsaaVentPaaMig : JEG SKAL OGSÅ LIGE NOGET, DER GÅR LIGE 3 SEKUNDER');
-        return new Promise(resolve => {
- 
+        return new Promise((resolve, reject) => {
+          
             setTimeout(() => {
-                resolve('SÅ NU ER JEG HER');
+                if(doReject2) {
+
+                    reject('ogsaaVentPaaMig : JEG NÆGTER FANDME!')
+
+                } else {
+                  
+                    resolve('ogsaaVentPaaMig : SÅ NU ER JEG HER');
+                }
             }, 3000);
         });
     
@@ -125,8 +141,8 @@ const listUsersByQuery = (query) => {
         
             case 'update':
                     console.log('SÅ DER ASYNC!');
-                    await ventPaaMig();
-                    await ogsaaVentPaaMig().then((response) => console.log(response))
+                    await ventPaaMig().then((reponse) => console.log(reponse));
+                    await ogsaaVentPaaMig().then((response) => console.log(response));
                     console.log('ENDELIG!');
                 break;
 
@@ -176,8 +192,6 @@ const queryResults = (e) => {
     let queryform = document.querySelector('#queryForm');
     let formInputs = queryform.elements;
     let query = formInputs['query'].value;
-    
-
 
     listUsersByQuery(query);
 
